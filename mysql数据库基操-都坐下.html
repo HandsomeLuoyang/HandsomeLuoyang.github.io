@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="keywords" content="c++, python, java, html5, css3, 编程, 学生编程，个人博客，大学生博客"><meta name="description" content="目前是大二学生，没有可以拿出来说道的东西，慢慢学，慢慢走"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>mysql数据库基操,都坐下! | 落阳的博客</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css"><script src="/js/pace.min.js"></script><meta name="generator" content="Hexo 4.2.0"></head></html><body><div id="app"><main class="content"><section class="outer"><article id="post-mysql数据库基操-都坐下" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal><div class="article-inner"><header class="article-header"><h1 class="article-title sea-center" style="border-left:0" itemprop="name">mysql数据库基操,都坐下!</h1></header><div class="article-meta"><a href="/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%93%8D-%E9%83%BD%E5%9D%90%E4%B8%8B.html" class="article-date"><time datetime="2020-02-05T16:44:38.000Z" itemprop="datePublished">2020-02-06</time></a></div><div class="tocbot"></div><div class="article-entry" itemprop="articleBody"><h2 id="数据库的操作"><a href="#数据库的操作" class="headerlink" title="数据库的操作"></a>数据库的操作</h2><h4 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h4><pre><code>mysql -uroot -p
+mysql -uroot -p[password]</code></pre><h4 id="退出数据库"><a href="#退出数据库" class="headerlink" title="退出数据库"></a>退出数据库</h4><pre><code>exit/quit/ctrl+d</code></pre><h4 id="sql语句最后需要有分号-结尾"><a href="#sql语句最后需要有分号-结尾" class="headerlink" title="sql语句最后需要有分号;结尾"></a>sql语句最后需要有分号;结尾</h4><h4 id="显示数据库版本"><a href="#显示数据库版本" class="headerlink" title="显示数据库版本"></a>显示数据库版本</h4><pre><code>select version();</code></pre><h4 id="显示时间"><a href="#显示时间" class="headerlink" title="显示时间"></a>显示时间</h4><pre><code>select now();</code></pre><h4 id="查看所有数据库"><a href="#查看所有数据库" class="headerlink" title="查看所有数据库"></a>查看所有数据库</h4><pre><code>show databases;</code></pre><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><pre><code>create database 数据库名 [charset = utf8];
+create database python04;
+create database python04new charset=utf8;</code></pre><h4 id="查看创建数据库的语句"><a href="#查看创建数据库的语句" class="headerlink" title="查看创建数据库的语句"></a>查看创建数据库的语句</h4><pre><code>show create database ....
+show create database python04;</code></pre><h4 id="查看当前使用的数据库"><a href="#查看当前使用的数据库" class="headerlink" title="查看当前使用的数据库"></a>查看当前使用的数据库</h4><pre><code>select database();</code></pre><h4 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h4><pre><code>use 数据库的名字
+use python04new;</code></pre><h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><pre><code>drop database 数据库名;
+drop database python04;</code></pre><h2 id="数据表的操作"><a href="#数据表的操作" class="headerlink" title="数据表的操作"></a>数据表的操作</h2><h4 id="查看当前数据库当中所有的表"><a href="#查看当前数据库当中所有的表" class="headerlink" title="查看当前数据库当中所有的表"></a>查看当前数据库当中所有的表</h4><pre><code>show tables;</code></pre><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><pre><code>auto_increment表示自动增长
+not null 表示不能为空
+primary key 表示主键
+default 默认值
+create table 数据表名字 (字段 类型 约束[, 字段 类型 约束]);
+创建classes表(id, name)
+
+create table xxxx(id int, name varchar(30));
+create table yyyy(id int primary key not null auto_increment, name varchar(30));
+create table zzzz(
+    id int primary key not null auto_increment, 
+    name varchar(30)
+);</code></pre><h4 id="查看表的信息"><a href="#查看表的信息" class="headerlink" title="查看表的信息"></a>查看表的信息</h4><pre><code>desc 表的名字;
+desc xxxx;</code></pre><h4 id="创建student表-id-name-age-high-gender-cls-id"><a href="#创建student表-id-name-age-high-gender-cls-id" class="headerlink" title="创建student表(id, name, age, high, gender, cls_id)"></a>创建student表(id, name, age, high, gender, cls_id)</h4><pre><code>create table students(
+    id int unsigned auto_increment primary key not null,
+    name varchar(30),
+    age tinyint unsigned default 0,
+    high decimal(5,2), 
+    gender enum(&quot;男&quot;, &quot;女&quot;, &quot;中性&quot;, &quot;保密&quot;) default &quot;保密&quot;,
+    cls_id int unsigned
+);
+
+insert into students values(0, &quot;laowang&quot;, 18, 188.50, &quot;男&quot;, 0);
+select * from students;</code></pre><h4 id="创建classes表-id-name"><a href="#创建classes表-id-name" class="headerlink" title="创建classes表(id, name)"></a>创建classes表(id, name)</h4><pre><code>create table classes(
+    id int unsigned not null primary key auto_increment, 
+    name varchar(30)
+);</code></pre><h4 id="查看表的创建语句"><a href="#查看表的创建语句" class="headerlink" title="查看表的创建语句"></a>查看表的创建语句</h4><pre><code>show create table 表名字;
+show create table students;</code></pre><h4 id="修改表-添加字段"><a href="#修改表-添加字段" class="headerlink" title="修改表-添加字段"></a>修改表-添加字段</h4><pre><code>alter table 表名 add 列名 类型及约束;
+alter table students add birthday datetime;</code></pre><h4 id="修改表-修改字段-不重命名版"><a href="#修改表-修改字段-不重命名版" class="headerlink" title="修改表-修改字段:不重命名版"></a>修改表-修改字段:不重命名版</h4><pre><code>alter table 表名 modify 列名 类型及约束
+alter table students modify birthday date;</code></pre><h4 id="修改表-修改字段-重命名版"><a href="#修改表-修改字段-重命名版" class="headerlink" title="修改表-修改字段:重命名版"></a>修改表-修改字段:重命名版</h4><pre><code>alter table 表名 change 原列名 新列名 类型及约束;
+alter table students change birthday birth date default &quot;2000-01-01&quot;;</code></pre><h4 id="修改表-删除字段"><a href="#修改表-删除字段" class="headerlink" title="修改表-删除字段"></a>修改表-删除字段</h4><pre><code>alter table 表名 drop 列名;
+alter table students drop high;</code></pre><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><pre><code>drop database 数据库;
+drop table 数据表;
+drop table xxxx;</code></pre><h2 id="增删改查-curd"><a href="#增删改查-curd" class="headerlink" title="增删改查(curd)"></a>增删改查(curd)</h2><h4 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h4><pre><code>全列插入
+insert [into] 表名 values(...)
+主键字段 可以用 0 null default 来占位
+
+向classes表中插入一个班级
+insert into classes values(0, &quot;菜鸟班&quot;);
+
+
++--------+-------------------------------------+------+-----+------------+----------------+
+| Field  | Type                                | Null | Key | Default    | Extra          |
++--------+-------------------------------------+------+-----+------------+----------------+
+| id     | int unsigned                        | NO   | PRI | NULL       | auto_increment |
+| name   | varchar(30)                         | YES  |     | NULL       |                |
+| age    | tinyint unsigned                    | YES  |     | 0          |                |
+| gender | enum(&apos;男&apos;,&apos;女&apos;,&apos;中性&apos;,&apos;保密&apos;)        | YES  |     | 保密       |                |
+| cls_id | int unsigned                        | YES  |     | NULL       |                |
+| birth  | date                                | YES  |     | 2000-01-01 |                |
++--------+-------------------------------------+------+-----+------------+--------------
+
+向students插入一个学生信息
+insert into students values(0, &quot;小李飞刀&quot;, 20, &quot;女&quot;, 1, &quot;1990-01-01&quot;);
+insert into students values(null, &quot;小李飞刀&quot;, 20, &quot;女&quot;, 1, &quot;1990-01-01&quot;);
+insert into students values(default, &quot;小李飞刀&quot;, 20, &quot;女&quot;, 1, &quot;1990-01-01&quot;);
+
+失败: insert into students values(default, &quot;小李飞刀&quot;, 20, &quot;第4性别&quot;, 1, &quot;1990-01-01&quot;);
+
+枚举中的下标从1 开始 1---&quot;男&quot; 2---&quot;女&quot; 3---&quot;保密&quot;
+insert into students values(default, &quot;小李飞刀&quot;, 20, 1, 1, &quot;1990-01-01&quot;);
+
+部分插入
+insert into 表名(列1,...) values(值1,...);
+insert into students(name, gender) values(&quot;小乔&quot;, &quot;女&quot;);
+
+多行插入
+insert into students(name, gender) values(&quot;大乔&quot;, &quot;女&quot;), (&quot;貂蝉&quot;, &quot;女&quot;);
+insert into students values(default, &quot;西施&quot;, 20, &quot;女&quot;, 1, &quot;1990-01-01&quot;), (default, &quot;王昭君&quot;, 20, &quot;女&quot;, 1, &quot;1990-01-01&quot;);</code></pre><h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><pre><code>update 表名 set 列1=值1, 列2=值2... where 条件;
+update students set gender=1; 全部都改
+update students set gender=1 where name=&quot;小李飞刀&quot;; 只要name是小李飞刀的全部修改
+update students set gender=1 where id=3; 只要id为3的就修改
+update students set age=22, gender=1 where id=4; 只要id为4的，同时修改两处</code></pre><h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><pre><code>物理删除
+delete from 表名 where 条件;
+delete from students; 整个数据表中所有数据全部删除
+delete from students where name=&quot;小李飞刀&quot;;
+
+逻辑删除
+用一个字段表示，这条信息已经不能再使用了
+给students表添加一个is_delete字段 bit类型
+alter table students add is_delete bit default 0;</code></pre><h4 id="查询基本使用"><a href="#查询基本使用" class="headerlink" title="查询基本使用"></a>查询基本使用</h4><pre><code>查询所有列
+select * from 表名;
+select * from students;
+
+定条件查询
+select * from students where name=&quot;小李飞刀&quot;; 查询name为小李飞刀的所有信息
+select * from students where id&gt;3; 查询id&gt;3的信息
+
+查询指定列
+select name, gender from students;
+
+
+可以用as为列或表指定别名
+select 字段(as 别名) , 字段(as 别名) from 数据表 where...;
+select name as 姓名, gender as 性别 from students;
+
+字段的顺序
+select id as 序号, gender as 性别, name as 姓名 from students;</code></pre><h2 id="数据的准备"><a href="#数据的准备" class="headerlink" title="数据的准备"></a>数据的准备</h2><h4 id="创建一个数据库"><a href="#创建一个数据库" class="headerlink" title="创建一个数据库"></a>创建一个数据库</h4><pre><code>create database python_test charset=utf8;</code></pre><h4 id="使用一个数据库"><a href="#使用一个数据库" class="headerlink" title="使用一个数据库"></a>使用一个数据库</h4><pre><code>use python_test;</code></pre><h4 id="显示当前使用的数据库"><a href="#显示当前使用的数据库" class="headerlink" title="显示当前使用的数据库"></a>显示当前使用的数据库</h4><pre><code>select database();</code></pre><h4 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h4><pre><code>students表
+create table students(
+    id int unsigned primary key not null auto_increment,
+    name varchar(20) default &quot;&quot;,
+    age tinyint unsigned default 0,
+    height decimal(5,2),
+    gender enum(&quot;男&quot;, &quot;女&quot;, &quot;保密&quot;) default &quot;保密&quot;,
+    cls_id int unsigned default 0,
+    is_delete bit default 0 
+);
+
+classes表
+create table classes(
+    id int unsigned primary key not null auto_increment,
+    name varchar(20) not null
+);</code></pre><h4 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h4><pre><code>insert into students values
+(0, &apos;小明&apos;,   18,180.00,2,1,0),
+(0, &apos;小月月&apos;, 18,180.00,2,2,1),
+(0, &apos;彭于晏&apos;, 29,185.00,1,1,0),
+(0, &apos;刘德华&apos;, 59,175.00,1,2,1),
+(0, &apos;黄蓉&apos;,   38,160.00,2,1,0),
+(0, &apos;凤姐&apos; ,  28,150.00,4,2,1),
+(0, &apos;王祖贤&apos;, 18,172.00,2,1,1),
+(0, &apos;周杰伦&apos;, 36,  NULL,1,1,0),
+(0, &apos;程坤&apos;,   27,181.00,1,2,0),
+(0, &apos;刘亦菲&apos;, 25,166.00,2,2,0),
+(0, &apos;金星&apos;,   33,162.00,3,3,1),
+(0, &apos;静香&apos;,   12,180.00,2,4,0),
+(0, &apos;郭靖&apos;,   12,170.00,1,4,0),
+(0, &apos;周杰&apos;,   34,176.00,2,5,0);
+
+insert into classes values
+(0, &quot;python_01期&quot;),
+(0, &quot;python_02期&quot;),
+(0, &quot;python_04期&quot;);</code></pre><h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h4 id="查询所有字段"><a href="#查询所有字段" class="headerlink" title="查询所有字段"></a>查询所有字段</h4><pre><code>select * from students;
+select * from classes;</code></pre><h4 id="查询指定字段"><a href="#查询指定字段" class="headerlink" title="查询指定字段"></a>查询指定字段</h4><pre><code>select 列1, 列2 from 表名;
+select name, age from students;</code></pre><h4 id="使用as给字段起别名"><a href="#使用as给字段起别名" class="headerlink" title="使用as给字段起别名"></a>使用as给字段起别名</h4><pre><code>select 字段 as 名字... from 表名;
+select name as 姓名, age as 年龄 from students;
+
+select 表名.字段 .... from 表名;
+select students.name , students.age from students;</code></pre><h4 id="可以通过as给表起别名"><a href="#可以通过as给表起别名" class="headerlink" title="可以通过as给表起别名"></a>可以通过as给表起别名</h4><pre><code>select 别名.字段 .... from 表名 as 别名;
+select s.name , s.age from students as s;</code></pre><h4 id="消除重复行"><a href="#消除重复行" class="headerlink" title="消除重复行"></a>消除重复行</h4><pre><code>distinct 字段
+select distinct gender from students;</code></pre><h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><h4 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h4><pre><code>select ... from 表名 where ....;
+
+&gt;
+查询大于18岁的信息
+select * from students where age&gt;18;
+select id, name, gender from students where age&gt;18;
+
+&lt;
+查询小于18岁的信息
+select * from students where age&lt;18;
+
+&gt;=
+&lt;=
+查询小于或者等于18岁的信息
+select * from students where age&lt;=18;
+
+=
+查询年龄为18岁的所有学生的名字
+select * from students where age=18;</code></pre><h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><pre><code>and
+18 到 28之间的所有学生信息
+select * from students where age&gt;18 and age&lt;28;
+
+18岁以上的女性
+select * from students where age&gt;18 and gender=&quot;女&quot;;
+
+or
+18岁以上或身高超过180以上(包含)
+select * from students where age&gt;18 or height &gt;= 180;
+
+not 
+不在18以上的女性 这个范围内的信息
+select * from students where gender=2 and not age &gt; 18;
+加括号可以改变优先级
+select * from students where not (age &gt; 18 and gender=2);
+
+年龄不是小于或者等于18 并且是女性
+select * from students where (not age&lt;=18) and gender=2;</code></pre><h4 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h4><pre><code>like
+% 替换零个，一个或多个
+_ 替换一个
+查询姓名中 以&quot;小&quot; 开始的名字
+select name from students where name like &quot;小%&quot;;
+
+查询名字中 有&quot;小&quot; 的所有名字
+select name from students where name like &quot;%小%&quot;;
+
+查询有2个字的名字
+select name from students where name like &quot;__&quot;;
+
+查询有3个字的名字
+select name from students where name like &quot;___&quot;;
+
+查询至少两个字的名字
+select name from students where name like &quot;__%&quot;;
+
+
+rlike(查询正则表达式)
+查询以 周 开头的名字
+select name from students where name rlike &quot;^周.*&quot;;
+
+查询以 周 开头，以 伦 结尾的名字
+select name from students where name rlike &quot;^周.*伦$&quot;;</code></pre><h4 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h4><pre><code>in (1, 3, 8) 表示在一个非连续的范围内
+查询年龄为 18， 34 的姓名
+select name, age from students where age = 18 or age = 34;
+select name, age from students where age = 18 or age = 34 or age=12;
+select name, age from students where age in (12, 18, 34);
+
+not in 不在非连续的范围之内
+年龄不是 18， 34岁之间的信息
+select name, age from students where age not in (18, 34);
+
+bteween ... and ... 表示在一个连续的范围之内 (左闭右闭)
+查询 年龄在18到34之间的信息
+select name, age from students where age between 18 and 34;
+
+not between ... and ... 表示不在一个连续的范围之内
+查询 年龄不在18到34岁之间的信息
+select * from students where age not between 18 and 34; (记这种用法)
+
+错误！！---&gt; **select * from students where age not (between 18 and 34); 因为not between是一个整体**
+
+正确的用法是---&gt; **select * from students where not age between 18 and 34;**
+
+判断空
+判空 is null
+查询身高为空的信息
+select * from students where height is null;
+select * from students where height is nuLL;
+select * from students where height is NULL;
+
+判非空
+is not null;
+select * from students where height is not null;</code></pre><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h4 id="order-by-字段"><a href="#order-by-字段" class="headerlink" title="order by 字段"></a>order by 字段</h4><pre><code>asc从小到大排列，即升序(默认)
+desc 从大到小排列，即降序
+
+查询年龄在18 到 34岁之间的男性，按照年龄从小到大排序
+select * from students where (age between 18 and 34) and gender=1 order by age；
+select * from students where (age between 18 and 34) and gender=1 order by age asc;
+
+查询年龄在18 到 34岁之间的女性，按照身高从高到矮排序
+select * from students where (age between 18 and 34) and gender=2 order by height desc;</code></pre><h4 id="order-by-多个字段"><a href="#order-by-多个字段" class="headerlink" title="order by 多个字段"></a>order by 多个字段</h4><pre><code>若第一个字段相同，按第二个字段，若第二个也相同，按第三个，以此类推
+查询年龄在18到34岁之间的女性，身高从高到低排序，若身高相同，年龄从小到大
+select * from students where (age between 18 and 34) and gender=2 order by height desc, age asc;
+
+查询年龄在18到34岁之间的女性，身高从高到低排序，若身高相同，年龄从小到大，年龄相同id从大到小排
+select * from students where (age between 18 and 34) and gender=2 order by height desc, age asc, id desc;
+
+按照年龄从小到大，身高从高到矮排序
+select * from students order by age asc, height desc;</code></pre><h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h4 id="总数"><a href="#总数" class="headerlink" title="总数"></a>总数</h4><pre><code>count
+查询男性有多少人，女性有多少人
+select * from students where gender=1;
+select count(*) from students where gender=1;
+select count(*) as 男性人数 from students where gender=1;
+
+select count(*) as 女性人数 from students where gender=2;</code></pre><h4 id="最大值"><a href="#最大值" class="headerlink" title="最大值"></a>最大值</h4><pre><code>max
+查询最大的年龄
+select max(age) as 最大年龄 from students;
+
+查询女性的最高身高
+select max(height) as 女性最高身高 from students where gender=2;</code></pre><h4 id="最小值"><a href="#最小值" class="headerlink" title="最小值"></a>最小值</h4><pre><code>min</code></pre><h4 id="求和"><a href="#求和" class="headerlink" title="求和"></a>求和</h4><pre><code>sum
+计算所有人的年龄总和
+select sum(age) as 年龄总和 from students;</code></pre><h4 id="平均值"><a href="#平均值" class="headerlink" title="平均值"></a>平均值</h4><pre><code>avg
+计算平均年龄
+select avg(age) as 年龄平均 from students;
+
+计算平均年龄sum(age)/sum(*)
+select sum(age)/sum(*) from students;</code></pre><h4 id="四舍五入-round-123-1-1-保留一位小数"><a href="#四舍五入-round-123-1-1-保留一位小数" class="headerlink" title="四舍五入 round(123.1, 1)保留一位小数"></a>四舍五入 round(123.1, 1)保留一位小数</h4><pre><code>计算所有人的平均年龄，保留2位小数
+select round(sum(age)/sum(*), 2) from students;
+
+计算男性的平均身高，保留两位小数
+select round(avg(height),2) from students where gender=1;
+失败---&gt;select name, round(avg(height),2) from students where gender=1;</code></pre><h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><h4 id="group-by"><a href="#group-by" class="headerlink" title="group by"></a>group by</h4><pre><code>按照性别分组，查询所有的性别
+失败---&gt;select name from students group by gender;
+失败---&gt;select * from students group by gender;
+select gender from students group by gender;
+
+计算每种性别当中的人数
+select gender, count(*) from students group by gender;
+
+计算男性的人数
+select gender, count(*) from students where gender=1 group by gender;</code></pre><h4 id="group-concat-…"><a href="#group-concat-…" class="headerlink" title="group_concat(…)"></a>group_concat(…)</h4><pre><code>查询同种性别中的姓名
+select gender, group_concat(name) from students where gender=1 group by gender;
+select gender, group_concat(name,age,id) from students where gender=1 group by gender;
+select gender, group_concat(name,&quot; &quot;,age,&quot; &quot;,id) from students where gender=1 group by gender;</code></pre><h4 id="having-对分组进行条件判断"><a href="#having-对分组进行条件判断" class="headerlink" title="having (对分组进行条件判断)"></a>having (对分组进行条件判断)</h4><pre><code>查询平均年龄超过30岁的性别，以及姓名 having avg(age) &gt; 30
+select gender, group_concat(name), avg(age) from students group by gender having avg(age) &gt; 30;
+
+查询所有性别中的人数多于2个的信息
+select gender, group_concat(name) from students group by gender having count(*)&gt;2;</code></pre><h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><h4 id="limit-start-count-limit放在最后"><a href="#limit-start-count-limit放在最后" class="headerlink" title="limit start, count; (limit放在最后)"></a>limit start, count; (limit放在最后)</h4><pre><code>限制查询出来的数据个数
+select * from students limit 2;
+
+查询5个数据
+select * from students limit 0, 5;
+
+查询id 6-10(包含) 的分页
+select * from students limit 5, 5;
+
+每页显示两个，第1个页面
+select * from students limit 0, 2;
+
+每页显示两个，第2个页面
+select * from students limit 2, 2;
+
+每页显示两个，第3个页面
+select * from students limit 4, 2;
+
+每页显示两个，第4个页面
+select * from students limit 6, 2; ---&gt;limit (第N页-1)*每页的个数，每页的个数
+
+每页显示两个，显示第6页的信息， 按照年龄从小到大排序
+失败---&gt;select * from students limit 2*(6-1), 2;
+失败---&gt;select * from students limit 10, 2 order by age;
+select * from students order by age limit 10, 2;</code></pre><h2 id="连接查询-mysql支持内连接和外连接，其中外连接分为左连接和右连接"><a href="#连接查询-mysql支持内连接和外连接，其中外连接分为左连接和右连接" class="headerlink" title="连接查询(mysql支持内连接和外连接，其中外连接分为左连接和右连接)"></a>连接查询(mysql支持内连接和外连接，其中外连接分为左连接和右连接)</h2><h4 id="inner-join-…-on"><a href="#inner-join-…-on" class="headerlink" title="inner join … on"></a>inner join … on</h4><pre><code>select ... from 表A inner join 表B;
+select * from students inner join classes;
+
+查询 有能够对应班级的学生以及班级信息
+select * from students inner join classes on students.cls_id=classes.id;
+
+按要求显示姓名，班级
+select students.*, classes.name from students inner join classes on students.cls_id=classes.id;
+select students.name, classes.name from students inner join classes on students.cls_id=classes.id;
+
+给数据表起名字
+select s.name, c.name from students as s inner join classes as c on s.cls_id=c.id;
+
+查询 有能够对应班级的学生以及班级信息， 显示学生的所有信息， 只显示班级名称
+select s.*, c.name from students as s inner join classes as c on s.cls_id=c.id;
+
+在以上查询中，将班级名字放在第一列
+select c.name, s.* from students as s inner join classes as c on s.cls_id=c.id;
+
+查询 有能够对应班级的学生以及班级信息,按照班级进行排序
+select c.name, s.* from students as s inner join classes as c on s.cls_id=c.id order by s.cls_id;
+
+当同一个班级的时候，按照学生的id进行从小到大排序
+select c.name, s.* from students as s inner join classes as c on s.cls_id=c.id order by s.cls_id, s.id;</code></pre><h4 id="left-join"><a href="#left-join" class="headerlink" title="left join"></a>left join</h4><pre><code>查询每位学生对应的班级信息
+select * from students as s left join classes as c on s.cls_id=c.id;
+
+查询没有对应班级信息的学生
+select ... from xxx as s left join xxx as c on ... where ...;
+select ... from xxx as s left join xxx as c on ... having ...;
+select * from students as s left join classes as c on s.cls_id=c.id having c.id is null;(多个表的集使用having)
+select * from students as s left join classes as c on s.cls_id=c.id where c.id is null;(一般原表使用where)</code></pre><h3 id="right-join"><a href="#right-join" class="headerlink" title="right join"></a>right join</h3><pre><code>将数据表名字互换位置，用left join完成</code></pre><h2 id="自关联"><a href="#自关联" class="headerlink" title="自关联"></a>自关联</h2><pre><code>通俗理解：一张表里面的某两个或者几个字段之间有关系，简称自关联(我关联我自己)
+
+创建表
+create table areas(
+    aid int primary key not null,
+    atitle varchar(20) default null,
+    pid int default null
+);
+
+所需数据下载
+https://pan.baidu.com/s/1Rk5-Xm5a4Xtckc3RmotYnA 提取码: yn78
+
+在mysql内使用命令 source xxx.sql(需要在文件当前路径)即可执行文件内所有命令添加数据
+
+查询出山东省有哪些市
+select * from areas as province inner join areas as city on province.aid=city.pid having province.atitle=&quot;山东省&quot;;
+select province.atitle, city.atitle from areas as province inner join areas as city on province.aid=city.pid having province.atitle=&quot;山东省&quot;;</code></pre><h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><pre><code>子查询通俗来讲，就是一个select里面还包含有另一个子查询的信息，相当于函数的结果作为另一个函数的参数一样
+标量子查询
+查询出高于平均身高的信息
+select * from students where height&gt;(select avg(height) from students);
+
+查询最高的男生信息
+select * from students where height = (select max(height) from students);
+
+列级子查询
+查询学生的班级号能对应的学生信息
+select * from students where cls_id in (select id from classes);</code></pre><div id="reward-btn">打赏</div></div><footer class="article-footer"><a data-url="http://hsluoyang.club/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%93%8D-%E9%83%BD%E5%9D%90%E4%B8%8B.html" data-id="ck69jnjdl0000akvohs4dhcyi" class="article-share-link">分享</a><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul></footer></div><nav class="article-nav"><a href="/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E8%AE%A9%E4%BD%A0%E6%8B%A5%E6%9C%89%E7%94%A8%E4%B8%8D%E5%AE%8C%E7%9A%84ip%E4%BB%A3%E7%90%86.html" class="article-nav-link"><strong class="article-nav-caption">下一篇</strong><div class="article-nav-title">一篇文章让你拥有用不完的ip代理</div></a></nav><div id="vcomments-box"><div id="vcomments"></div></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script><script>new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '5WSaK6bUDnRLhgbQjaL5R9Tq-gzGzoHsz',
+        app_key: '7x0vYeAw0aRYU5SjaFugWDxh',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }</script><style>#vcomments-box{padding:5px 30px}@media screen and (max-width:800px){#vcomments-box{padding:5px 0}}#vcomments-box #vcomments{background-color:#fff}.v .vlist .vcard .vh{padding-right:20px}.v .vlist .vcard{padding-left:10px}</style></article></section><footer class="footer"><div class="outer"><ul class="list-inline"><li>&copy; 2019-2020 落阳</li><li><a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu</li></ul><ul class="list-inline"><li><ul class="list-inline"><li>PV:<span id="busuanzi_value_page_pv"></span></li><li>UV:<span id="busuanzi_value_site_uv"></span></li></ul></li><li></li></ul></div></footer><div class="to_top"><div class="totop" id="totop"><i class="ri-arrow-up-line"></i></div></div></main><aside class="sidebar"><button class="navbar-toggle"></button><nav class="navbar"><div class="logo"><a href="/"><img src="/images/touxiang.png" alt="落阳的博客"></a></div><ul class="nav nav-main"><li class="nav-item"><a class="nav-item-link" href="/">主页</a></li><li class="nav-item"><a class="nav-item-link" href="/archives">目录</a></li><li class="nav-item"><a class="nav-item-link" href="/tags">标签</a></li></ul></nav><nav class="navbar navbar-bottom"><ul class="nav"><li class="nav-item"><a class="nav-item-link nav-item-search" title="搜索"><i class="ri-search-line"></i> </a><a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed"><i class="ri-rss-line"></i></a></li></ul></nav><div class="search-form-wrap"><div class="local-search local-search-plugin"><input type="search" id="local-search-input" class="local-search-input" placeholder="Search..."><div id="local-search-result" class="local-search-result"></div></div></div></aside><div id="mask"></div><div id="reward"><span class="close"><i class="ri-close-line"></i></span><p class="reward-p"><i class="ri-cup-line"></i>谢谢你请我吃糖果~</p><div class="reward-box"><div class="reward-item"><img class="reward-img" src="/images/alipay.png"> <span class="reward-type">支付宝</span></div><div class="reward-item"><img class="reward-img" src="/images/weixin.png"> <span class="reward-type">微信</span></div></div></div><script src="/js/jquery-2.0.3.min.js"></script><script src="/js/jquery.justifiedGallery.min.js"></script><script src="/js/lazyload.min.js"></script><script src="/js/busuanzi-2.3.pure.min.js"></script><script src="/fancybox/jquery.fancybox.min.js"></script><script src="/js/tocbot.min.js"></script><script>tocbot.init({tocSelector:".tocbot",contentSelector:".article-entry",headingSelector:"h1, h2, h3, h4, h5, h6",hasInnerContainers:!0,scrollSmooth:!0,positionFixedSelector:".tocbot",positionFixedClass:"is-position-fixed",fixedSidebarOffset:"auto"})</script><script>var ayerConfig={mathjax:!1}</script><script src="/js/ayer.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"><script type="text/javascript" src="https://js.users.51.la/20544303.js"></script></div></body>
